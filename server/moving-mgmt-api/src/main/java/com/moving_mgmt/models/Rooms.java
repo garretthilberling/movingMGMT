@@ -11,7 +11,7 @@ import java.util.Objects;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@Table(name = "amenities")
+@Table(name = "rooms")
 public class Rooms {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -80,5 +80,16 @@ public class Rooms {
     @Override
     public int hashCode() {
         return Objects.hash(getId(), getBedrooms(), getBathrooms(), getSquareFootage(), getApartmentId());
+    }
+
+    @Override
+    public String toString() {
+        return "Rooms{" +
+                "id=" + id +
+                ", bedrooms=" + bedrooms +
+                ", bathrooms=" + bathrooms +
+                ", squareFootage=" + squareFootage +
+                ", apartmentId=" + apartmentId +
+                '}';
     }
 }

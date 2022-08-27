@@ -22,19 +22,16 @@ public class Amenities {
     private Boolean airConditioning;
     private Boolean stove;
     private Boolean gated;
-    private Integer walkability; // score between 1 and 10
     private Integer apartmentId;
 
-    public Amenities(Integer id, Boolean washer, Boolean dryer, Boolean dishwasher, Boolean airConditioning, Boolean stove, Boolean gated, Integer walkability, Integer apartmentId) {
-        this.airConditioning = airConditioning;
-        this.apartmentId = apartmentId;
-        this.stove = stove;
-        this.dishwasher = dishwasher;
-        this.gated = gated;
+    public Amenities(Integer id, Boolean washer, Boolean dryer, Boolean dishwasher, Boolean airConditioning, Boolean stove, Boolean gated, Integer apartmentId) {
+        this.id = id;
         this.washer = washer;
         this.dryer = dryer;
-        this.walkability = walkability;
-        this.id = id;
+        this.dishwasher = dishwasher;
+        this.airConditioning = airConditioning;
+        this.stove = stove;
+        this.gated = gated;
         this.apartmentId = apartmentId;
     }
 
@@ -46,12 +43,28 @@ public class Amenities {
         this.id = id;
     }
 
-    public Integer getApartmentId() {
-        return apartmentId;
+    public Boolean getWasher() {
+        return washer;
     }
 
-    public void setApartmentId(Integer apartmentId) {
-        this.apartmentId = apartmentId;
+    public void setWasher(Boolean washer) {
+        this.washer = washer;
+    }
+
+    public Boolean getDryer() {
+        return dryer;
+    }
+
+    public void setDryer(Boolean dryer) {
+        this.dryer = dryer;
+    }
+
+    public Boolean getDishwasher() {
+        return dishwasher;
+    }
+
+    public void setDishwasher(Boolean dishwasher) {
+        this.dishwasher = dishwasher;
     }
 
     public Boolean getAirConditioning() {
@@ -70,30 +83,6 @@ public class Amenities {
         this.stove = stove;
     }
 
-    public Boolean getDishwasher() {
-        return dishwasher;
-    }
-
-    public void setDishwasher(Boolean dishwasher) {
-        this.dishwasher = dishwasher;
-    }
-
-    public Boolean getWasher() {
-        return washer;
-    }
-
-    public void setWasher(Boolean dryer) {
-        this.washer = washer;
-    }
-
-    public Boolean getDryer() {
-        return dryer;
-    }
-
-    public void setDryer(Boolean dryer) {
-        this.dryer = dryer;
-    }
-
     public Boolean getGated() {
         return gated;
     }
@@ -102,47 +91,38 @@ public class Amenities {
         this.gated = gated;
     }
 
-    public Integer getWalkability() {
-        return walkability;
+    public Integer getApartmentId() {
+        return apartmentId;
     }
 
-    public void setWalkability(Integer walkability) {
-        this.walkability = walkability;
+    public void setApartmentId(Integer apartmentId) {
+        this.apartmentId = apartmentId;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Amenities)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         Amenities amenities = (Amenities) o;
-        return  Objects.equals(getId(), amenities.getId()) &&
-                Objects.equals(getApartmentId(), amenities.getApartmentId()) &&
-                Objects.equals(getDryer(), amenities.getDryer()) &&
-                Objects.equals(getWasher(), amenities.getWasher()) &&
-                Objects.equals(getDishwasher(), amenities.getDishwasher()) &&
-                Objects.equals(getStove(), amenities.getStove()) &&
-                Objects.equals(getAirConditioning(), amenities.getAirConditioning()) &&
-                Objects.equals(getGated(), amenities.getGated()) &&
-                Objects.equals(getWalkability(), amenities.getWalkability());
+        return Objects.equals(getId(), amenities.getId()) && Objects.equals(getWasher(), amenities.getWasher()) && Objects.equals(getDryer(), amenities.getDryer()) && Objects.equals(getDishwasher(), amenities.getDishwasher()) && Objects.equals(getAirConditioning(), amenities.getAirConditioning()) && Objects.equals(getStove(), amenities.getStove()) && Objects.equals(getGated(), amenities.getGated()) && Objects.equals(getApartmentId(), amenities.getApartmentId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getApartmentId(), getDryer(), getWasher(), getDishwasher(), getStove(), getAirConditioning(), getGated(), getWalkability());
+        return Objects.hash(getId(), getWasher(), getDryer(), getDishwasher(), getAirConditioning(), getStove(), getGated(), getApartmentId());
     }
 
     @Override
     public String toString() {
         return "Amenities{" +
                 "id=" + id +
-                ", apartment_id=" + apartmentId +
-                ", dryer=" + dryer +
                 ", washer=" + washer +
+                ", dryer=" + dryer +
                 ", dishwasher=" + dishwasher +
+                ", airConditioning=" + airConditioning +
                 ", stove=" + stove +
-                ", air_conditioning=" + airConditioning +
                 ", gated=" + gated +
-                ", walkability=" + walkability +
+                ", apartmentId=" + apartmentId +
                 '}';
     }
 }
