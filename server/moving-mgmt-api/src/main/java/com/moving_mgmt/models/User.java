@@ -19,6 +19,8 @@ public class User {
     @Column(unique = true)
     private String email;
     private String password;
+    private Integer salary;
+    private Integer budget;
     @Transient
     boolean loggedIn;
 
@@ -82,6 +84,22 @@ public class User {
         this.apartments = apartments;
     }
 
+    public Integer getBudget() {
+        return budget;
+    }
+
+    public void setBudget(Integer budget) {
+        this.budget = budget;
+    }
+
+    public Integer getSalary() {
+        return salary;
+    }
+
+    public void setSalary(Integer salary) {
+        this.salary = salary;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -92,13 +110,11 @@ public class User {
                 Objects.equals(getUsername(), user.getUsername()) &&
                 Objects.equals(getEmail(), user.getEmail()) &&
                 Objects.equals(getPassword(), user.getPassword()) &&
-                Objects.equals(getPosts(), user.getPosts()) &&
-                Objects.equals(getVotes(), user.getVotes()) &&
-                Objects.equals(getComments(), user.getComments());
+                Objects.equals(getApartments(), user.getApartments());
     }
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getUsername(), getEmail(), getPassword(), isLoggedIn(), getPosts(), getVotes(), getComments());
+        return Objects.hash(getId(), getUsername(), getEmail(), getPassword(), isLoggedIn(), getApartments());
     }
     @Override
     public String toString() {
@@ -108,9 +124,7 @@ public class User {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", loggedIn=" + loggedIn +
-                ", posts=" + posts +
-                ", votes=" + votes +
-                ", comments=" + comments +
+                ", apartments=" + apartments +
                 '}';
     }
 }
