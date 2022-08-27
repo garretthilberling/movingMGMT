@@ -1,4 +1,4 @@
-package src.main.java.com.moving_mgmt.models;
+package src.main.java.com.moving_mgmt.movingmgmtapi.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;

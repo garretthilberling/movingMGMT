@@ -3,8 +3,14 @@
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/server" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/server/moving-mgmt-api" isTestSource="false" />
     </content>
+    <content url="file://$MODULE_DIR$/server/moving-mgmt-api" />
+    <content url="file://$MODULE_DIR$/server/moving-mgmt-api/.mvn" />
+    <content url="file://$MODULE_DIR$/server/moving-mgmt-api/production" />
+    <content url="file://$MODULE_DIR$/server/moving-mgmt-api/src" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
