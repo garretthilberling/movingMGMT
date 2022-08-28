@@ -13,7 +13,7 @@ public class Rooms {
     private Integer bedrooms;
     private Integer bathrooms;
     private Integer squareFootage;
-    @OneToOne(mappedBy = "amenities")
+    @OneToOne(mappedBy = "rooms")
     private Apartment apartment;
 
     public Rooms(Integer id, Integer bedrooms, Integer bathrooms, Integer squareFootage) {

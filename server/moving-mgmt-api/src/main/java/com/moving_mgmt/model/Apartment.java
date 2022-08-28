@@ -20,13 +20,13 @@ public class Apartment {
     private Integer userId;
 
     @OneToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "amenities_id", referencedColumnName = "id")
     private Amenities amenities;
     @OneToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "rooms_id", referencedColumnName = "id")
     private Rooms rooms;
     @OneToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "location_id", referencedColumnName = "id")
     private Location location;
 
 

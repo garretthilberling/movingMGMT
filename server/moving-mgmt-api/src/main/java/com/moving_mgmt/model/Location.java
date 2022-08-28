@@ -15,7 +15,7 @@ public class Location {
     private Boolean nearStreet;
     private Integer levelOfNoise; // between 1 and 10
     private Integer walkability; // between 1 and 10
-    @OneToOne(mappedBy = "amenities")
+    @OneToOne(mappedBy = "location")
     private Apartment apartment;
 
     public Location(Integer id, String address, Boolean nearStreet, Integer levelOfNoise, Integer walkability) {
