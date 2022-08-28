@@ -16,6 +16,9 @@ public class Rooms {
     @OneToOne(mappedBy = "rooms")
     private Apartment apartment;
 
+    public Rooms() {
+    }
+
     public Rooms(Integer id, Integer bedrooms, Integer bathrooms, Integer squareFootage) {
         this.id = id;
         this.bedrooms = bedrooms;

@@ -21,6 +21,9 @@ public class Amenities {
     @OneToOne(mappedBy = "amenities")
     private Apartment apartment;
 
+    public Amenities() {
+    }
+
     public Amenities(Integer id, Boolean washer, Boolean dryer, Boolean dishwasher, Boolean airConditioning, Boolean stove, Boolean gated) {
         this.id = id;
         this.washer = washer;

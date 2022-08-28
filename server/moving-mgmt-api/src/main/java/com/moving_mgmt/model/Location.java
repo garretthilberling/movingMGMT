@@ -18,6 +18,9 @@ public class Location {
     @OneToOne(mappedBy = "location")
     private Apartment apartment;
 
+    public Location() {
+    }
+
     public Location(Integer id, String address, Boolean nearStreet, Integer levelOfNoise, Integer walkability) {
         this.id = id;
         this.address = address;

@@ -26,6 +26,9 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Apartment> apartments;
 
+    public User() {
+    }
+
     public User(Integer id, String username, String email, String password, Integer salary, Integer budget) {
         this.id = id;
         this.username = username;

@@ -19,16 +19,18 @@ public class Apartment {
     private String siteLink;
     private Integer userId;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "amenities_id", referencedColumnName = "id")
     private Amenities amenities;
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "rooms_id", referencedColumnName = "id")
     private Rooms rooms;
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "location_id", referencedColumnName = "id")
     private Location location;
 
+    public Apartment() {
+    }
 
     public Apartment(Integer id, Date moveInDate, Integer price, String siteLink, Integer userId) {
       this.id = id;
