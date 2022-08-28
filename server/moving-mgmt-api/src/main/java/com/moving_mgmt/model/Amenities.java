@@ -17,9 +17,11 @@ public class Amenities {
     private Boolean airConditioning;
     private Boolean stove;
     private Boolean gated;
-    private Integer apartmentId;
 
-    public Amenities(Integer id, Boolean washer, Boolean dryer, Boolean dishwasher, Boolean airConditioning, Boolean stove, Boolean gated, Integer apartmentId) {
+    @OneToOne(mappedBy = "amenities")
+    private Apartment apartment;
+
+    public Amenities(Integer id, Boolean washer, Boolean dryer, Boolean dishwasher, Boolean airConditioning, Boolean stove, Boolean gated) {
         this.id = id;
         this.washer = washer;
         this.dryer = dryer;
@@ -27,7 +29,6 @@ public class Amenities {
         this.airConditioning = airConditioning;
         this.stove = stove;
         this.gated = gated;
-        this.apartmentId = apartmentId;
     }
 
     public Integer getId() {
@@ -86,12 +87,12 @@ public class Amenities {
         this.gated = gated;
     }
 
-    public Integer getApartmentId() {
-        return apartmentId;
+    public Apartment getApartment() {
+        return apartment;
     }
 
-    public void setApartmentId(Integer apartmentId) {
-        this.apartmentId = apartmentId;
+    public void setApartment(Apartment apartment) {
+        this.apartment = apartment;
     }
 
     @Override
@@ -99,12 +100,12 @@ public class Amenities {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Amenities amenities = (Amenities) o;
-        return Objects.equals(getId(), amenities.getId()) && Objects.equals(getWasher(), amenities.getWasher()) && Objects.equals(getDryer(), amenities.getDryer()) && Objects.equals(getDishwasher(), amenities.getDishwasher()) && Objects.equals(getAirConditioning(), amenities.getAirConditioning()) && Objects.equals(getStove(), amenities.getStove()) && Objects.equals(getGated(), amenities.getGated()) && Objects.equals(getApartmentId(), amenities.getApartmentId());
+        return Objects.equals(getId(), amenities.getId()) && Objects.equals(getWasher(), amenities.getWasher()) && Objects.equals(getDryer(), amenities.getDryer()) && Objects.equals(getDishwasher(), amenities.getDishwasher()) && Objects.equals(getAirConditioning(), amenities.getAirConditioning()) && Objects.equals(getStove(), amenities.getStove()) && Objects.equals(getGated(), amenities.getGated()) && Objects.equals(getApartment(), amenities.getApartment());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getWasher(), getDryer(), getDishwasher(), getAirConditioning(), getStove(), getGated(), getApartmentId());
+        return Objects.hash(getId(), getWasher(), getDryer(), getDishwasher(), getAirConditioning(), getStove(), getGated(), getApartment());
     }
 
     @Override
@@ -117,7 +118,7 @@ public class Amenities {
                 ", airConditioning=" + airConditioning +
                 ", stove=" + stove +
                 ", gated=" + gated +
-                ", apartmentId=" + apartmentId +
+                ", apartment=" + apartment +
                 '}';
     }
 }

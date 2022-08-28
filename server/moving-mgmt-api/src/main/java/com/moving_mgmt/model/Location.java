@@ -15,15 +15,15 @@ public class Location {
     private Boolean nearStreet;
     private Integer levelOfNoise; // between 1 and 10
     private Integer walkability; // between 1 and 10
-    private Integer apartmentId;
+    @OneToOne(mappedBy = "amenities")
+    private Apartment apartment;
 
-    public Location(Integer id, String address, Boolean nearStreet, Integer levelOfNoise, Integer walkability, Integer apartmentId) {
+    public Location(Integer id, String address, Boolean nearStreet, Integer levelOfNoise, Integer walkability) {
         this.id = id;
         this.address = address;
         this.nearStreet = nearStreet;
         this.levelOfNoise = levelOfNoise;
         this.walkability = walkability;
-        this.apartmentId = apartmentId;
     }
 
     public Integer getId() {
@@ -66,12 +66,12 @@ public class Location {
         this.walkability = walkability;
     }
 
-    public Integer getApartmentId() {
-        return apartmentId;
+    public Apartment getApartment() {
+        return apartment;
     }
 
-    public void setApartmentId(Integer apartmentId) {
-        this.apartmentId = apartmentId;
+    public void setApartment(Apartment apartment) {
+        this.apartment = apartment;
     }
 
     @Override
@@ -79,12 +79,12 @@ public class Location {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Location location = (Location) o;
-        return Objects.equals(getId(), location.getId()) && Objects.equals(getAddress(), location.getAddress()) && Objects.equals(getNearStreet(), location.getNearStreet()) && Objects.equals(getLevelOfNoise(), location.getLevelOfNoise()) && Objects.equals(getWalkability(), location.getWalkability()) && Objects.equals(getApartmentId(), location.getApartmentId());
+        return Objects.equals(getId(), location.getId()) && Objects.equals(getAddress(), location.getAddress()) && Objects.equals(getNearStreet(), location.getNearStreet()) && Objects.equals(getLevelOfNoise(), location.getLevelOfNoise()) && Objects.equals(getWalkability(), location.getWalkability()) && Objects.equals(getApartment(), location.getApartment());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getAddress(), getNearStreet(), getLevelOfNoise(), getWalkability(), getApartmentId());
+        return Objects.hash(getId(), getAddress(), getNearStreet(), getLevelOfNoise(), getWalkability(), getApartment());
     }
 
     @Override
@@ -95,7 +95,7 @@ public class Location {
                 ", nearStreet=" + nearStreet +
                 ", levelOfNoise=" + levelOfNoise +
                 ", walkability=" + walkability +
-                ", apartmentId=" + apartmentId +
+                ", apartment=" + apartment +
                 '}';
     }
 }

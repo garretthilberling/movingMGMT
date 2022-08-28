@@ -19,11 +19,14 @@ public class Apartment {
     private String siteLink;
     private Integer userId;
 
-    @OneToOne(mappedBy = "apartmentId", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne
+    @JoinColumn(name = "id")
     private Amenities amenities;
-    @OneToOne(mappedBy = "apartmentId", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne
+    @JoinColumn(name = "id")
     private Rooms rooms;
-    @OneToOne(mappedBy = "apartmentId", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne
+    @JoinColumn(name = "id")
     private Location location;
 
 

@@ -13,14 +13,14 @@ public class Rooms {
     private Integer bedrooms;
     private Integer bathrooms;
     private Integer squareFootage;
-    private Integer apartmentId;
+    @OneToOne(mappedBy = "amenities")
+    private Apartment apartment;
 
-    public Rooms(Integer id, Integer bedrooms, Integer bathrooms, Integer squareFootage, Integer apartmentId) {
+    public Rooms(Integer id, Integer bedrooms, Integer bathrooms, Integer squareFootage) {
         this.id = id;
         this.bedrooms = bedrooms;
         this.bathrooms = bathrooms;
         this.squareFootage = squareFootage;
-        this.apartmentId = apartmentId;
     }
 
     public Integer getId() {
@@ -55,12 +55,12 @@ public class Rooms {
         this.squareFootage = squareFootage;
     }
 
-    public Integer getApartmentId() {
-        return apartmentId;
+    public Apartment getApartment() {
+        return apartment;
     }
 
-    public void setApartmentId(Integer apartmentId) {
-        this.apartmentId = apartmentId;
+    public void setApartment(Apartment apartment) {
+        this.apartment = apartment;
     }
 
     @Override
@@ -68,12 +68,12 @@ public class Rooms {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Rooms rooms = (Rooms) o;
-        return Objects.equals(getId(), rooms.getId()) && Objects.equals(getBedrooms(), rooms.getBedrooms()) && Objects.equals(getBathrooms(), rooms.getBathrooms()) && Objects.equals(getSquareFootage(), rooms.getSquareFootage()) && Objects.equals(getApartmentId(), rooms.getApartmentId());
+        return Objects.equals(getId(), rooms.getId()) && Objects.equals(getBedrooms(), rooms.getBedrooms()) && Objects.equals(getBathrooms(), rooms.getBathrooms()) && Objects.equals(getSquareFootage(), rooms.getSquareFootage()) && Objects.equals(getApartment(), rooms.getApartment());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getBedrooms(), getBathrooms(), getSquareFootage(), getApartmentId());
+        return Objects.hash(getId(), getBedrooms(), getBathrooms(), getSquareFootage(), getApartment());
     }
 
     @Override
@@ -83,7 +83,7 @@ public class Rooms {
                 ", bedrooms=" + bedrooms +
                 ", bathrooms=" + bathrooms +
                 ", squareFootage=" + squareFootage +
-                ", apartmentId=" + apartmentId +
+                ", apartment=" + apartment +
                 '}';
     }
 }
