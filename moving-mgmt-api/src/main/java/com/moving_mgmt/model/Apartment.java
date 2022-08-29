@@ -16,6 +16,7 @@ public class Apartment {
     @Column(name = "move_in_date")
     private Date moveInDate;
     private Integer price;
+    @Column(name = "site_link")
     private String siteLink;
     private Integer userId;
 
