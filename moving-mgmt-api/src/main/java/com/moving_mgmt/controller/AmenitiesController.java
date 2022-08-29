@@ -27,7 +27,6 @@ public class AmenitiesController {
         repository.save(amenities);
         return amenities;
     }
-
     // update amenities
     @PutMapping("/api/amenities/{id}")
     public Amenities updateAmenities(@PathVariable Integer id, @RequestBody Amenities amenities) throws Exception {
@@ -39,7 +38,6 @@ public class AmenitiesController {
         }
         return amenities;
     }
-
     // remove an amenities
     @DeleteMapping("/api/amenities/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
