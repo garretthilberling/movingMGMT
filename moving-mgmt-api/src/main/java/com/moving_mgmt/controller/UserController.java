@@ -1,15 +1,11 @@
 package com.moving_mgmt.controller;
-import com.moving_mgmt.model.Apartment;
 import com.moving_mgmt.model.User;
 import com.moving_mgmt.repositories.UserRepository;
-import com.sun.xml.bind.v2.model.core.ID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 public class UserController {
