@@ -12,14 +12,15 @@ public class Rooms {
     private Integer id;
     private Integer bedrooms;
     private Integer bathrooms;
-    private Integer squareFootage;
+    private Long squareFootage;
     @OneToOne(mappedBy = "rooms")
+    @JoinColumn(name = "apartment_id", referencedColumnName = "id")
     private Apartment apartment;
 
     public Rooms() {
     }
 
-    public Rooms(Integer id, Integer bedrooms, Integer bathrooms, Integer squareFootage) {
+    public Rooms(Integer id, Integer bedrooms, Integer bathrooms, Long squareFootage) {
         this.id = id;
         this.bedrooms = bedrooms;
         this.bathrooms = bathrooms;
@@ -50,11 +51,11 @@ public class Rooms {
         this.bathrooms = bathrooms;
     }
 
-    public Integer getSquareFootage() {
+    public Long getSquareFootage() {
         return squareFootage;
     }
 
-    public void setSquareFootage(Integer squareFootage) {
+    public void setSquareFootage(Long squareFootage) {
         this.squareFootage = squareFootage;
     }
 

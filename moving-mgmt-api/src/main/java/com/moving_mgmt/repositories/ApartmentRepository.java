@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface ApartmentRepository extends JpaRepository<Apartment, Integer> {
     @Modifying
-    @Query(value="select * from Apartment where userId = (select id from User u where u.username = ?1)", nativeQuery = true)
+    @Query(value="select * from Apartment where user_id = (select id from User u where u.username = ?1)", nativeQuery = true)
     List<Apartment> findAllByUsername(String username) throws Exception;
 
     Apartment findApartmentById(Integer id);

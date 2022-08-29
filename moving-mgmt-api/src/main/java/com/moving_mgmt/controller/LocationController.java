@@ -23,7 +23,7 @@ public class LocationController {
     }
     // add location
     @PostMapping("/api/location")
-    public Location addLocation(@PathVariable Location location) {
+    public Location addLocation(@RequestBody Location location) {
         repository.save(location);
         return location;
     }

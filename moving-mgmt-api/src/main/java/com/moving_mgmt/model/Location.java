@@ -16,6 +16,7 @@ public class Location {
     private Integer levelOfNoise; // between 1 and 10
     private Integer walkability; // between 1 and 10
     @OneToOne(mappedBy = "location")
+    @JoinColumn(name = "apartment_id", referencedColumnName = "id")
     private Apartment apartment;
 
     public Location() {

@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class ApartmentController {
     @Autowired
@@ -13,8 +15,8 @@ public class ApartmentController {
 
     // get a user's saved apartments
     @GetMapping("/api/{username}/apartments")
-    public Apartment findAllByUserName(@PathVariable String username) throws Exception {
-        return (Apartment) repository.findAllByUsername(username);
+    public List<Apartment> findAllByUserName(@PathVariable String username) throws Exception {
+        return (List<Apartment>) repository.findAllByUsername(username);
     }
 
     // get a single apartment by id

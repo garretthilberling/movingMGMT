@@ -19,6 +19,7 @@ public class Amenities {
     private Boolean gated;
 
     @OneToOne(mappedBy = "amenities")
+    @JoinColumn(name = "apartment_id", referencedColumnName = "id")
     private Apartment apartment;
 
     public Amenities() {

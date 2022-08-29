@@ -2,9 +2,9 @@ package com.moving_mgmt.controller;
 import com.moving_mgmt.repositories.RoomsRepository;
 import com.moving_mgmt.model.Rooms;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class RoomsController {
@@ -23,7 +23,7 @@ public class RoomsController {
     }
     // add rooms
     @PostMapping("/api/rooms")
-    public Rooms addRooms(@PathVariable Rooms rooms) {
+    public Rooms addRooms(@RequestBody Rooms rooms) {
         repository.save(rooms);
         return rooms;
     }

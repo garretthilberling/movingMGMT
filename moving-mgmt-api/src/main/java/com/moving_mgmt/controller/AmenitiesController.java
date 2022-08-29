@@ -23,7 +23,7 @@ public class AmenitiesController {
     }
     // add amenities
     @PostMapping("/api/amenities")
-    public Amenities addAmenities(@PathVariable Amenities amenities) {
+    public Amenities addAmenities(@RequestBody Amenities amenities) {
         repository.save(amenities);
         return amenities;
     }
