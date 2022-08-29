@@ -13,4 +13,6 @@ public interface ApartmentRepository extends JpaRepository<Apartment, Integer> {
     List<Apartment> findAllByUsername(String username) throws Exception;
 
     Apartment findApartmentById(Integer id);
+
+
 }
