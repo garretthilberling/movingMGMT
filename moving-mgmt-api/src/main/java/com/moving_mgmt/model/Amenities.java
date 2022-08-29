@@ -10,7 +10,8 @@ import java.util.Objects;
 public class Amenities {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    @Column(name = "amenities_id")
+    private Integer amenitiesId;
     private Boolean washer;
     private Boolean dryer;
     private Boolean dishwasher;
@@ -18,29 +19,28 @@ public class Amenities {
     private Boolean stove;
     private Boolean gated;
 
-    @OneToOne(mappedBy = "amenities")
-    @JoinColumn(name = "apartment_id", referencedColumnName = "id")
-    private Apartment apartment;
+    private Integer apartmentId;
 
     public Amenities() {
     }
 
-    public Amenities(Integer id, Boolean washer, Boolean dryer, Boolean dishwasher, Boolean airConditioning, Boolean stove, Boolean gated) {
-        this.id = id;
+    public Amenities(Integer amenitiesId, Boolean washer, Boolean dryer, Boolean dishwasher, Boolean airConditioning, Boolean stove, Boolean gated, Integer apartmentId) {
+        this.amenitiesId = amenitiesId;
         this.washer = washer;
         this.dryer = dryer;
         this.dishwasher = dishwasher;
         this.airConditioning = airConditioning;
         this.stove = stove;
         this.gated = gated;
+        this.apartmentId = apartmentId;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getAmenitiesId() {
+        return amenitiesId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setAmenitiesId(Integer amenitiesId) {
+        this.amenitiesId = amenitiesId;
     }
 
     public Boolean getWasher() {
@@ -91,12 +91,12 @@ public class Amenities {
         this.gated = gated;
     }
 
-    public Apartment getApartment() {
-        return apartment;
+    public Integer getApartmentId() {
+        return apartmentId;
     }
 
-    public void setApartment(Apartment apartment) {
-        this.apartment = apartment;
+    public void setApartmentId(Integer apartmentId) {
+        this.apartmentId = apartmentId;
     }
 
     @Override
@@ -104,25 +104,25 @@ public class Amenities {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Amenities amenities = (Amenities) o;
-        return Objects.equals(getId(), amenities.getId()) && Objects.equals(getWasher(), amenities.getWasher()) && Objects.equals(getDryer(), amenities.getDryer()) && Objects.equals(getDishwasher(), amenities.getDishwasher()) && Objects.equals(getAirConditioning(), amenities.getAirConditioning()) && Objects.equals(getStove(), amenities.getStove()) && Objects.equals(getGated(), amenities.getGated()) && Objects.equals(getApartment(), amenities.getApartment());
+        return Objects.equals(getAmenitiesId(), amenities.getAmenitiesId()) && Objects.equals(getWasher(), amenities.getWasher()) && Objects.equals(getDryer(), amenities.getDryer()) && Objects.equals(getDishwasher(), amenities.getDishwasher()) && Objects.equals(getAirConditioning(), amenities.getAirConditioning()) && Objects.equals(getStove(), amenities.getStove()) && Objects.equals(getGated(), amenities.getGated()) && Objects.equals(getApartmentId(), amenities.getApartmentId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getWasher(), getDryer(), getDishwasher(), getAirConditioning(), getStove(), getGated(), getApartment());
+        return Objects.hash(getAmenitiesId(), getWasher(), getDryer(), getDishwasher(), getAirConditioning(), getStove(), getGated(), getApartmentId());
     }
 
     @Override
     public String toString() {
         return "Amenities{" +
-                "id=" + id +
+                "amenitiesId=" + amenitiesId +
                 ", washer=" + washer +
                 ", dryer=" + dryer +
                 ", dishwasher=" + dishwasher +
                 ", airConditioning=" + airConditioning +
                 ", stove=" + stove +
                 ", gated=" + gated +
-                ", apartment=" + apartment +
+                ", apartmentId=" + apartmentId +
                 '}';
     }
 }

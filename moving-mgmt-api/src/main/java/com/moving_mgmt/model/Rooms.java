@@ -9,30 +9,30 @@ import java.util.Objects;
 public class Rooms {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    @Column(name = "rooms_id")
+    private Integer roomsId;
     private Integer bedrooms;
     private Integer bathrooms;
     private Long squareFootage;
-    @OneToOne(mappedBy = "rooms")
-    @JoinColumn(name = "apartment_id", referencedColumnName = "id")
-    private Apartment apartment;
+    private Integer apartmentId;
 
     public Rooms() {
     }
 
-    public Rooms(Integer id, Integer bedrooms, Integer bathrooms, Long squareFootage) {
-        this.id = id;
+    public Rooms(Integer roomsId, Integer bedrooms, Integer bathrooms, Long squareFootage, Integer apartmentId) {
+        this.roomsId = roomsId;
         this.bedrooms = bedrooms;
         this.bathrooms = bathrooms;
         this.squareFootage = squareFootage;
+        this.apartmentId = apartmentId;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getRoomsId() {
+        return roomsId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setRoomsId(Integer roomsId) {
+        this.roomsId = roomsId;
     }
 
     public Integer getBedrooms() {
@@ -59,12 +59,12 @@ public class Rooms {
         this.squareFootage = squareFootage;
     }
 
-    public Apartment getApartment() {
-        return apartment;
+    public Integer getApartmentId() {
+        return apartmentId;
     }
 
-    public void setApartment(Apartment apartment) {
-        this.apartment = apartment;
+    public void setApartmentId(Integer apartmentId) {
+        this.apartmentId = apartmentId;
     }
 
     @Override
@@ -72,22 +72,22 @@ public class Rooms {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Rooms rooms = (Rooms) o;
-        return Objects.equals(getId(), rooms.getId()) && Objects.equals(getBedrooms(), rooms.getBedrooms()) && Objects.equals(getBathrooms(), rooms.getBathrooms()) && Objects.equals(getSquareFootage(), rooms.getSquareFootage()) && Objects.equals(getApartment(), rooms.getApartment());
+        return Objects.equals(getRoomsId(), rooms.getRoomsId()) && Objects.equals(getBedrooms(), rooms.getBedrooms()) && Objects.equals(getBathrooms(), rooms.getBathrooms()) && Objects.equals(getSquareFootage(), rooms.getSquareFootage()) && Objects.equals(getApartmentId(), rooms.getApartmentId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getBedrooms(), getBathrooms(), getSquareFootage(), getApartment());
+        return Objects.hash(getRoomsId(), getBedrooms(), getBathrooms(), getSquareFootage(), getApartmentId());
     }
 
     @Override
     public String toString() {
         return "Rooms{" +
-                "id=" + id +
+                "roomsId=" + roomsId +
                 ", bedrooms=" + bedrooms +
                 ", bathrooms=" + bathrooms +
                 ", squareFootage=" + squareFootage +
-                ", apartment=" + apartment +
+                ", apartmentId=" + apartmentId +
                 '}';
     }
 }

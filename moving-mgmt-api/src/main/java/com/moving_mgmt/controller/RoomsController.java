@@ -19,7 +19,7 @@ public class RoomsController {
     // get rooms by id
     @GetMapping("/api/rooms/{id}")
     public Rooms findRoomsById(@PathVariable Integer id) throws Exception {
-        return (Rooms) repository.findRoomsById(id);
+        return (Rooms) repository.findRoomsByRoomsId(id);
     }
     // add rooms
     @PostMapping("/api/rooms")
@@ -30,10 +30,10 @@ public class RoomsController {
     // update rooms
     @PutMapping("/api/rooms/{id}")
     public Rooms updateRooms(@PathVariable Integer id, @RequestBody Rooms rooms) throws Exception {
-        Rooms tempRooms = repository.findRoomsById(id);
+        Rooms tempRooms = repository.findRoomsByRoomsId(id);
 
         if(!tempRooms.equals(null)) {
-            rooms.setId(tempRooms.getId());
+            rooms.setRoomsId(tempRooms.getRoomsId());
             repository.save(rooms);
         }
         return rooms;

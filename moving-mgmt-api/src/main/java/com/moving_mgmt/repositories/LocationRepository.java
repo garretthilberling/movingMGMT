@@ -12,5 +12,5 @@ public interface LocationRepository extends JpaRepository<Location, Integer> {
     @Query(value="select * from Location where apartmentId = ?1", nativeQuery = true)
     Location findLocationByApartmentId(Integer id) throws Exception;
 
-    Location findLocationById(Integer id);
+    Location findLocationByLocationId(Integer id);
 }

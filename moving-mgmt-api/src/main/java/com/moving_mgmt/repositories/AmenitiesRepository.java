@@ -11,5 +11,5 @@ public interface AmenitiesRepository extends JpaRepository<Amenities, Integer> {
     @Query(value="select * from Amenities where apartmentId = ?1", nativeQuery = true)
     Amenities findAmenitiesByApartmentId(Integer id) throws Exception;
 
-    Amenities findAmenitiesById(Integer id);
+    Amenities findAmenitiesByAmenitiesId(Integer id);
 }

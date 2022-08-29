@@ -19,7 +19,7 @@ public class LocationController {
     // get location by id
     @GetMapping("/api/location/{id}")
     public Location findLocationById(@PathVariable Integer id) throws Exception {
-        return (Location) repository.findLocationById(id);
+        return (Location) repository.findLocationByLocationId(id);
     }
     // add location
     @PostMapping("/api/location")
@@ -30,10 +30,10 @@ public class LocationController {
     // update location
     @PutMapping("/api/location/{id}")
     public Location updateLocation(@PathVariable Integer id, @RequestBody Location location) throws Exception {
-        Location tempLocation = repository.findLocationById(id);
+        Location tempLocation = repository.findLocationByLocationId(id);
 
         if(!tempLocation.equals(null)) {
-            location.setId(tempLocation.getId());
+            location.setLocationId(tempLocation.getLocationId());
             repository.save(location);
         }
         return location;

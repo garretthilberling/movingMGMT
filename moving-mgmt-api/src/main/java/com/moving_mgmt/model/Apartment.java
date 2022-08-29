@@ -3,6 +3,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -20,25 +21,22 @@ public class Apartment {
     private String siteLink;
     private Integer userId;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "amenities_id", referencedColumnName = "id")
-    private Amenities amenities;
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "rooms_id", referencedColumnName = "id")
-    private Rooms rooms;
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "location_id", referencedColumnName = "id")
-    private Location location;
+    @OneToMany(mappedBy = "apartmentId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Amenities> amenities;
+    @OneToMany(mappedBy = "apartmentId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Rooms> rooms;
+    @OneToMany(mappedBy = "apartmentId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Location> location;
 
     public Apartment() {
     }
 
     public Apartment(Integer id, Date moveInDate, Integer price, String siteLink, Integer userId) {
-      this.id = id;
-      this.moveInDate = moveInDate;
-      this.price = price;
-      this.siteLink = siteLink;
-      this.userId = userId;
+        this.id = id;
+        this.moveInDate = moveInDate;
+        this.price = price;
+        this.siteLink = siteLink;
+        this.userId = userId;
     }
 
     public Integer getId() {
@@ -81,27 +79,27 @@ public class Apartment {
         this.userId = userId;
     }
 
-    public Amenities getAmenities() {
+    public List<Amenities> getAmenities() {
         return amenities;
     }
 
-    public void setAmenities(Amenities amenities) {
+    public void setAmenities(List<Amenities> amenities) {
         this.amenities = amenities;
     }
 
-    public Rooms getRooms() {
+    public List<Rooms> getRooms() {
         return rooms;
     }
 
-    public void setRooms(Rooms rooms) {
+    public void setRooms(List<Rooms> rooms) {
         this.rooms = rooms;
     }
 
-    public Location getLocation() {
+    public List<Location> getLocation() {
         return location;
     }
 
-    public void setLocation(Location location) {
+    public void setLocation(List<Location> location) {
         this.location = location;
     }
 

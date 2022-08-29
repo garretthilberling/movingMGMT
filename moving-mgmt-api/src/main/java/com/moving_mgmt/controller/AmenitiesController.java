@@ -19,7 +19,7 @@ public class AmenitiesController {
     // get amenities by id
     @GetMapping("/api/amenities/{id}")
     public Amenities findAmenitiesById(@PathVariable Integer id) throws Exception {
-        return (Amenities) repository.findAmenitiesById(id);
+        return (Amenities) repository.findAmenitiesByAmenitiesId(id);
     }
     // add amenities
     @PostMapping("/api/amenities")
@@ -30,10 +30,10 @@ public class AmenitiesController {
     // update amenities
     @PutMapping("/api/amenities/{id}")
     public Amenities updateAmenities(@PathVariable Integer id, @RequestBody Amenities amenities) throws Exception {
-        Amenities tempAmenities = repository.findAmenitiesById(id);
+        Amenities tempAmenities = repository.findAmenitiesByAmenitiesId(id);
 
         if(!tempAmenities.equals(null)) {
-            amenities.setId(tempAmenities.getId());
+            amenities.setAmenitiesId(tempAmenities.getAmenitiesId());
             repository.save(amenities);
         }
         return amenities;

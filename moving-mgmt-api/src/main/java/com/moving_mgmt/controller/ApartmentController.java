@@ -1,6 +1,12 @@
 package com.moving_mgmt.controller;
+import com.moving_mgmt.model.Amenities;
 import com.moving_mgmt.model.Apartment;
+import com.moving_mgmt.model.Location;
+import com.moving_mgmt.model.Rooms;
+import com.moving_mgmt.repositories.AmenitiesRepository;
 import com.moving_mgmt.repositories.ApartmentRepository;
+import com.moving_mgmt.repositories.LocationRepository;
+import com.moving_mgmt.repositories.RoomsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +18,12 @@ import java.util.List;
 public class ApartmentController {
     @Autowired
     ApartmentRepository repository;
+    @Autowired
+    LocationRepository locationRepository;
+    @Autowired
+    AmenitiesRepository amenitiesRepository;
+    @Autowired
+    RoomsRepository roomsRepository;
 
     // get a user's saved apartments
     @GetMapping("/api/{username}/apartments")

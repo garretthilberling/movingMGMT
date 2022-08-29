@@ -10,32 +10,32 @@ import java.util.Objects;
 public class Location {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    @Column(name = "location_id")
+    private Integer locationId;
     private String address;
     private Boolean nearStreet;
     private Integer levelOfNoise; // between 1 and 10
     private Integer walkability; // between 1 and 10
-    @OneToOne(mappedBy = "location")
-    @JoinColumn(name = "apartment_id", referencedColumnName = "id")
-    private Apartment apartment;
+    private Integer apartmentId;
 
     public Location() {
     }
 
-    public Location(Integer id, String address, Boolean nearStreet, Integer levelOfNoise, Integer walkability) {
-        this.id = id;
+    public Location(Integer locationId, String address, Boolean nearStreet, Integer levelOfNoise, Integer walkability, Integer apartmentId) {
+        this.locationId = locationId;
         this.address = address;
         this.nearStreet = nearStreet;
         this.levelOfNoise = levelOfNoise;
         this.walkability = walkability;
+        this.apartmentId = apartmentId;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getLocationId() {
+        return locationId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setLocationId(Integer locationId) {
+        this.locationId = locationId;
     }
 
     public String getAddress() {
@@ -70,12 +70,12 @@ public class Location {
         this.walkability = walkability;
     }
 
-    public Apartment getApartment() {
-        return apartment;
+    public Integer getApartmentId() {
+        return apartmentId;
     }
 
-    public void setApartment(Apartment apartment) {
-        this.apartment = apartment;
+    public void setApartmentId(Integer apartmentId) {
+        this.apartmentId = apartmentId;
     }
 
     @Override
@@ -83,23 +83,23 @@ public class Location {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Location location = (Location) o;
-        return Objects.equals(getId(), location.getId()) && Objects.equals(getAddress(), location.getAddress()) && Objects.equals(getNearStreet(), location.getNearStreet()) && Objects.equals(getLevelOfNoise(), location.getLevelOfNoise()) && Objects.equals(getWalkability(), location.getWalkability()) && Objects.equals(getApartment(), location.getApartment());
+        return Objects.equals(getLocationId(), location.getLocationId()) && Objects.equals(getAddress(), location.getAddress()) && Objects.equals(getNearStreet(), location.getNearStreet()) && Objects.equals(getLevelOfNoise(), location.getLevelOfNoise()) && Objects.equals(getWalkability(), location.getWalkability()) && Objects.equals(getApartmentId(), location.getApartmentId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getAddress(), getNearStreet(), getLevelOfNoise(), getWalkability(), getApartment());
+        return Objects.hash(getLocationId(), getAddress(), getNearStreet(), getLevelOfNoise(), getWalkability(), getApartmentId());
     }
 
     @Override
     public String toString() {
         return "Location{" +
-                "id=" + id +
+                "locationId=" + locationId +
                 ", address='" + address + '\'' +
                 ", nearStreet=" + nearStreet +
                 ", levelOfNoise=" + levelOfNoise +
                 ", walkability=" + walkability +
-                ", apartment=" + apartment +
+                ", apartmentId=" + apartmentId +
                 '}';
     }
 }

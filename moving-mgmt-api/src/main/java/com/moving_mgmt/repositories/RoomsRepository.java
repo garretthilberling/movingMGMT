@@ -12,5 +12,5 @@ public interface RoomsRepository extends JpaRepository<Rooms, Integer> {
     @Query(value="select * from Rooms where apartmentId = ?1", nativeQuery = true)
     Rooms findRoomsByApartmentId(Integer id) throws Exception;
 
-    Rooms findRoomsById(Integer id);
+    Rooms findRoomsByRoomsId(Integer id);
 }
