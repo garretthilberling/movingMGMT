@@ -7,8 +7,10 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, String> {
+    @Query(value="select * from User u where u.username = ?1", nativeQuery = true)
     User findByUsername(String username) throws Exception; // custom query method
 
+    @Query(value="select * from User u where u.email = ?1", nativeQuery = true)
     User findByEmail(String email) throws Exception;
 
     @Modifying

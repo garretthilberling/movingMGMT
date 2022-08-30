@@ -5,6 +5,7 @@ import com.moving_mgmt.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +25,6 @@ public class UserController {
     public User signup(@RequestBody User user) { // @RequestBody annotation—which will map the body of this request to a transfer object, then deserialize the body onto a Java object for easier use
         // Hash password
         user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
-//        long password = Long.parseLong(user.getPassword());
         // set auth token
         user.setToken(JwtAuthentication.createJWT(user.getUsername(), user.getEmail(), "user_signup", 2));
         repository.save(user);
@@ -35,19 +35,16 @@ public class UserController {
     @PostMapping("/api/login")
     public User login(@RequestBody User user) throws Exception {
             User loginUser = repository.findByEmail(user.getEmail());
-            String checkPassword = loginUser.getPassword();
-            user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
-            String enteredPassword = user.getPassword();
-            if(checkPassword.equals(enteredPassword) && !loginUser.equals(null)) {
-                user.setId(loginUser.getId());
-                long password = Long.parseLong(user.getPassword());
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+            if(encoder.matches(user.getPassword(), loginUser.getPassword()) && !loginUser.equals(null)) {
                 // set auth token
-                user.setToken(JwtAuthentication.createJWT(user.getUsername(), user.getEmail(), "user_signup", password));
-                repository.save(user);
+                loginUser.setToken(JwtAuthentication.createJWT(user.getUsername(), user.getEmail(), "user_signup", 2));
+                repository.save(loginUser);
             } else {
                 throw new IllegalAccessException("invalid credentials");
             }
-            return user;
+            return loginUser;
     }
 
     // update user
