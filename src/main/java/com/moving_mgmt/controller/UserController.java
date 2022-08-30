@@ -1,4 +1,5 @@
 package com.moving_mgmt.controller;
+import com.moving_mgmt.utils.JwtAuthentication;
 import com.moving_mgmt.model.User;
 import com.moving_mgmt.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,25 +19,50 @@ public class UserController {
         return repository.findByUsername(username);
     }
 
-    // create user
-    @PostMapping("/api/users")
-    public User addUser(@RequestBody User user) { // @RequestBody annotation—which will map the body of this request to a transfer object, then deserialize the body onto a Java object for easier use
+    // signup
+    @PostMapping("/api/signup")
+    public User signup(@RequestBody User user) { // @RequestBody annotation—which will map the body of this request to a transfer object, then deserialize the body onto a Java object for easier use
         // Hash password
         user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
+//        long password = Long.parseLong(user.getPassword());
+        // set auth token
+        user.setToken(JwtAuthentication.createJWT(user.getUsername(), user.getEmail(), "user_signup", 2));
         repository.save(user);
         return user;
     }
 
+    // login
+    @PostMapping("/api/login")
+    public User login(@RequestBody User user) throws Exception {
+            User loginUser = repository.findByEmail(user.getEmail());
+            String checkPassword = loginUser.getPassword();
+            user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
+            String enteredPassword = user.getPassword();
+            if(checkPassword.equals(enteredPassword) && !loginUser.equals(null)) {
+                user.setId(loginUser.getId());
+                long password = Long.parseLong(user.getPassword());
+                // set auth token
+                user.setToken(JwtAuthentication.createJWT(user.getUsername(), user.getEmail(), "user_signup", password));
+                repository.save(user);
+            } else {
+                throw new IllegalAccessException("invalid credentials");
+            }
+            return user;
+    }
+
     // update user
     @PutMapping("/api/users/{username}")
-    public User updatedUser(@PathVariable String username, @RequestBody User user) throws Exception { // @PathVariable will allow us to enter the int id into the request URI as a parameter
-        User tempUser = repository.findByUsername(username);
+    public User updatedUser(@PathVariable String username, @RequestBody User user, @RequestHeader("Authorizon") String token) throws Exception { // @PathVariable will allow us to enter the int id into the request URI as a parameter
+        if(!JwtAuthentication.decodeJWT(token).equals(IllegalArgumentException.class)) {
+            User tempUser = repository.findByUsername(username);
 
-        if (!tempUser.equals(null)) {
-            user.setId(tempUser.getId());
-            repository.save(user);
+            if (!tempUser.equals(null)) {
+                user.setId(tempUser.getId());
+                repository.save(user);
+            }
+            return user;
         }
-        return user;
+        throw new IllegalAccessException("invalid token");
     }
 
     // remove user

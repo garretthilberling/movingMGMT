@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 public interface UserRepository extends JpaRepository<User, String> {
     User findByUsername(String username) throws Exception; // custom query method
 
+    User findByEmail(String email) throws Exception;
+
     @Modifying
     @Query(value="delete from User u where u.username = ?1", nativeQuery = true)
     void deleteByUsername(String username);

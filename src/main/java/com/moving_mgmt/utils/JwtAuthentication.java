@@ -11,7 +11,6 @@ import java.util.Date;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.Claims;
 import io.github.cdimascio.dotenv.Dotenv;
-import io.github.cdimascio.dotenv.DotenvEntry;
 
 public class JwtAuthentication {
     // The secret key. This should be in a property file NOT under source

@@ -20,8 +20,8 @@ public class User implements Serializable {
     private String password;
     private Integer salary;
     private Integer budget;
-    @Transient  // signals to Spring Data JPA that this data is NOT to be persisted in the database
-    boolean loggedIn;
+    @Transient
+    String token;
 
     @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Apartment> apartments;
@@ -86,12 +86,12 @@ public class User implements Serializable {
         this.budget = budget;
     }
 
-    public boolean isLoggedIn() {
-        return loggedIn;
+    public String getToken() {
+        return token;
     }
 
-    public void setLoggedIn(boolean loggedIn) {
-        this.loggedIn = loggedIn;
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public List<Apartment> getApartments() {
@@ -102,20 +102,21 @@ public class User implements Serializable {
         this.apartments = apartments;
     }
 
-    public boolean equals(Object object) {
-        if (this == object) return true;
-        if (object == null || getClass() != object.getClass()) return false;
-        if (!super.equals(object)) return false;
-        User user = (User) object;
-        return isLoggedIn() == user.isLoggedIn() && java.util.Objects.equals(getId(), user.getId()) && java.util.Objects.equals(getUsername(), user.getUsername()) && java.util.Objects.equals(getEmail(), user.getEmail()) && java.util.Objects.equals(getPassword(), user.getPassword()) && java.util.Objects.equals(getSalary(), user.getSalary()) && java.util.Objects.equals(getBudget(), user.getBudget()) && java.util.Objects.equals(getApartments(), user.getApartments());
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(getId(), user.getId()) && Objects.equals(getUsername(), user.getUsername()) && Objects.equals(getEmail(), user.getEmail()) && Objects.equals(getPassword(), user.getPassword()) && Objects.equals(getSalary(), user.getSalary()) && Objects.equals(getBudget(), user.getBudget()) && Objects.equals(getToken(), user.getToken()) && Objects.equals(getApartments(), user.getApartments());
     }
 
+    @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), getId(), getUsername(), getEmail(), getPassword(), getSalary(), getBudget(), isLoggedIn(), getApartments());
+        return Objects.hash(getId(), getUsername(), getEmail(), getPassword(), getSalary(), getBudget(), getToken(), getApartments());
     }
 
-    @java.lang.Override
-    public java.lang.String toString() {
+    @Override
+    public String toString() {
         return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
@@ -123,7 +124,7 @@ public class User implements Serializable {
                 ", password='" + password + '\'' +
                 ", salary=" + salary +
                 ", budget=" + budget +
-                ", loggedIn=" + loggedIn +
+                ", token='" + token + '\'' +
                 ", apartments=" + apartments +
                 '}';
     }
