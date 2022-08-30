@@ -3,11 +3,14 @@ import com.moving_mgmt.utils.JwtAuthentication;
 import com.moving_mgmt.model.User;
 import com.moving_mgmt.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 public class UserController {
@@ -49,7 +52,8 @@ public class UserController {
 
     // update user
     @PutMapping("/api/users/{username}")
-    public User updatedUser(@PathVariable String username, @RequestBody User user, @RequestHeader("Authorizon") String token) throws Exception { // @PathVariable will allow us to enter the int id into the request URI as a parameter
+    public User updatedUser(@PathVariable String username, @RequestBody User user, HttpServletRequest request) throws Exception { // @PathVariable will allow us to enter the int id into the request URI as a parameter
+        String token = request.getHeader(HttpHeaders.AUTHORIZATION);
         if(!JwtAuthentication.decodeJWT(token).equals(IllegalArgumentException.class)) {
             User tempUser = repository.findByUsername(username);
 
@@ -66,7 +70,10 @@ public class UserController {
     @DeleteMapping("/api/users/{username}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Transactional
-    public void deleteUser(@PathVariable String username) {
-        repository.deleteByUsername(username);
+    public void deleteUser(@PathVariable String username, HttpServletRequest request) {
+        String token = request.getHeader(HttpHeaders.AUTHORIZATION);
+        if(!JwtAuthentication.decodeJWT(token).equals(IllegalArgumentException.class)) {
+            repository.deleteByUsername(username);
+        }
     }
 }
