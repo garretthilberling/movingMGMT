@@ -29,7 +29,7 @@ public class UserController {
         // Hash password
         user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
         // set auth token
-        user.setToken(JwtAuthentication.createJWT(user.getUsername(), user.getEmail(), "user_signup", 2));
+        user.setToken(JwtAuthentication.createJWT(user.getEmail()));
         repository.save(user);
         return user;
     }
@@ -42,7 +42,7 @@ public class UserController {
 
             if(encoder.matches(user.getPassword(), loginUser.getPassword()) && !loginUser.equals(null)) {
                 // set auth token
-                loginUser.setToken(JwtAuthentication.createJWT(user.getUsername(), user.getEmail(), "user_signup", 2));
+                loginUser.setToken(JwtAuthentication.createJWT(user.getEmail()));
                 repository.save(loginUser);
             } else {
                 throw new IllegalAccessException("invalid credentials");
@@ -53,7 +53,7 @@ public class UserController {
     // update user
     @PutMapping("/api/users/{username}")
     public User updatedUser(@PathVariable String username, @RequestBody User user, HttpServletRequest request) throws Exception { // @PathVariable will allow us to enter the int id into the request URI as a parameter
-        String token = request.getHeader(HttpHeaders.AUTHORIZATION);
+        String token = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[1];
         if(!JwtAuthentication.decodeJWT(token).equals(IllegalArgumentException.class)) {
             User tempUser = repository.findByUsername(username);
 
@@ -71,7 +71,7 @@ public class UserController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Transactional
     public void deleteUser(@PathVariable String username, HttpServletRequest request) {
-        String token = request.getHeader(HttpHeaders.AUTHORIZATION);
+        String token = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[1];
         if(!JwtAuthentication.decodeJWT(token).equals(IllegalArgumentException.class)) {
             repository.deleteByUsername(username);
         }

@@ -28,7 +28,7 @@ public class LocationController {
     // add location
     @PostMapping("/api/location")
     public Location addLocation(@RequestBody Location location, HttpServletRequest request) throws Exception {
-        String token = request.getHeader(HttpHeaders.AUTHORIZATION);
+        String token = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[1];
         if(!JwtAuthentication.decodeJWT(token).equals(IllegalArgumentException.class)) {
             repository.save(location);
             return location;
@@ -38,7 +38,7 @@ public class LocationController {
     // update location
     @PutMapping("/api/location/{id}")
     public Location updateLocation(@PathVariable Integer id, @RequestBody Location location, HttpServletRequest request) throws Exception {
-        String token = request.getHeader(HttpHeaders.AUTHORIZATION);
+        String token = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[1];
         if(!JwtAuthentication.decodeJWT(token).equals(IllegalArgumentException.class)) {
             Location tempLocation = repository.findLocationByLocationId(id);
 
@@ -55,7 +55,7 @@ public class LocationController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Transactional
     public void deleteLocation(@PathVariable Integer id, @RequestBody Location location, HttpServletRequest request) {
-        String token = request.getHeader(HttpHeaders.AUTHORIZATION);
+        String token = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[1];
         if(!JwtAuthentication.decodeJWT(token).equals(IllegalArgumentException.class)) {
             repository.deleteById(id);
         }

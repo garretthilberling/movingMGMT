@@ -28,7 +28,7 @@ public class AmenitiesController {
     // add amenities
     @PostMapping("/api/amenities")
     public Amenities addAmenities(@RequestBody Amenities amenities, HttpServletRequest request) throws Exception {
-        String token = request.getHeader(HttpHeaders.AUTHORIZATION);
+        String token = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[1];
         if(!JwtAuthentication.decodeJWT(token).equals(IllegalArgumentException.class)) {
             repository.save(amenities);
             return amenities;
@@ -38,7 +38,7 @@ public class AmenitiesController {
     // update amenities
     @PutMapping("/api/amenities/{id}")
     public Amenities updateAmenities(@PathVariable Integer id, @RequestBody Amenities amenities, HttpServletRequest request) throws Exception {
-        String token = request.getHeader(HttpHeaders.AUTHORIZATION);
+        String token = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[1];
         if(!JwtAuthentication.decodeJWT(token).equals(IllegalArgumentException.class)) {
             Amenities tempAmenities = repository.findAmenitiesByAmenitiesId(id);
 
@@ -55,7 +55,7 @@ public class AmenitiesController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Transactional
     public void deleteAmenities(@PathVariable Integer id, HttpServletRequest request) {
-        String token = request.getHeader(HttpHeaders.AUTHORIZATION);
+        String token = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[1];
         if(!JwtAuthentication.decodeJWT(token).equals(IllegalArgumentException.class)) {
             repository.deleteById(id);
         }

@@ -43,7 +43,7 @@ public class ApartmentController {
     // add an apartment
     @PostMapping("/api/apartments")
     public Apartment addApartment(@RequestBody Apartment apartment, HttpServletRequest request) throws Exception {
-        String token = request.getHeader(HttpHeaders.AUTHORIZATION);
+        String token = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[1];
         if(!JwtAuthentication.decodeJWT(token).equals(IllegalArgumentException.class)) {
             repository.save(apartment);
             return apartment;
@@ -54,7 +54,7 @@ public class ApartmentController {
     // update an apartment
     @PutMapping("/api/apartments/{id}")
     public Apartment updateApartment(@PathVariable Integer id, @RequestBody Apartment apartment, HttpServletRequest request) throws Exception {
-        String token = request.getHeader(HttpHeaders.AUTHORIZATION);
+        String token = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[1];
         if(!JwtAuthentication.decodeJWT(token).equals(IllegalArgumentException.class)) {
             Apartment tempApartment = repository.findApartmentById(id);
 
@@ -72,7 +72,7 @@ public class ApartmentController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Transactional
     public void deleteApartment(@PathVariable Integer id, HttpServletRequest request) throws Exception {
-        String token = request.getHeader(HttpHeaders.AUTHORIZATION);
+        String token = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[1];
         if(!JwtAuthentication.decodeJWT(token).equals(IllegalArgumentException.class)) {
             repository.deleteById(id);
         }

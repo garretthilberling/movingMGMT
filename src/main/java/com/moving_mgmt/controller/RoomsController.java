@@ -28,7 +28,8 @@ public class RoomsController {
     // add rooms
     @PostMapping("/api/rooms")
     public Rooms addRooms(@RequestBody Rooms rooms, HttpServletRequest request) throws Exception {
-        String token = request.getHeader(HttpHeaders.AUTHORIZATION);
+        String token = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[1];
+        System.out.println(token);
         if(!JwtAuthentication.decodeJWT(token).equals(IllegalArgumentException.class)) {
             repository.save(rooms);
             return rooms;
@@ -38,7 +39,7 @@ public class RoomsController {
     // update rooms
     @PutMapping("/api/rooms/{id}")
     public Rooms updateRooms(@PathVariable Integer id, @RequestBody Rooms rooms, HttpServletRequest request) throws Exception {
-        String token = request.getHeader(HttpHeaders.AUTHORIZATION);
+        String token = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[1];
         if(!JwtAuthentication.decodeJWT(token).equals(IllegalArgumentException.class)) {
             Rooms tempRooms = repository.findRoomsByRoomsId(id);
 
@@ -55,7 +56,7 @@ public class RoomsController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Transactional
     public void deleteRooms(@PathVariable Integer id, HttpServletRequest request) {
-        String token = request.getHeader(HttpHeaders.AUTHORIZATION);
+        String token = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[1];
         if(!JwtAuthentication.decodeJWT(token).equals(IllegalArgumentException.class)) {
             repository.deleteById(id);
         }
